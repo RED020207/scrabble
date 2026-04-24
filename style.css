@@ -39,13 +39,14 @@ body{
     margin: 10px;
     transition: 0.4s;
 }
-.btn:hover{
+.btn:not(:disabled):hover{
     background-color: gray;
     color: white;
 }
 .btn:disabled{
     background-color: gray;
     color: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 #letters{
     display: flex;
@@ -71,4 +72,31 @@ body{
 }
 #score{
     white-space: pre;
+}
+#ingame{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 10%;
+}
+#hint{
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.4s;
+}
+#hint:not(:disabled):hover{
+    background-color: white;
+    color: black;
+}
+#hint:disabled{
+    color: gray;
+    border: 1px solid gray;
+    box-shadow: none;
 }

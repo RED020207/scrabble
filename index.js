@@ -3,6 +3,7 @@ const easy = ["garden", "surprised", "journey", "comfortable", "prepare"];
 const medium = ["skeptical", "subtle", "profound", "procastinate", "significant"];
 const hard = ["meticulous", "ambiguous", "magnanimous", "resilient", "ubiquitous"];
 const vhard = ["pulchritudinous", "defenestration", "floccinaucinihilipilification", "sesquipedalian", "inchoate"];
+const levels = ["Easy", "Medium", "Hard", "Very Hard", "Insane"];
 let guess="";
 let word="";
 let s = 0;
@@ -12,10 +13,15 @@ letters = document.getElementById("letters");
 buttons = document.querySelectorAll(".btn.diff");
 exit = document.getElementById("exit");
 letter = document.querySelectorAll(".letter");
+hint = document.getElementById("hint");
 window.onload = async () => {
     const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('diff') === "1")
+            hint.disabled = true;
     if (urlParams.get('runAsync') === 'true') {
         console.log("Triggering asynchronous function...");
+        letters.innerHTML = "<div class='choice'>Loading...</div>";
+        document.getElementById("level").textContent = "Level: " + levels[parseInt(urlParams.get('diff')) - 1];
         word = await generateWord(urlParams.get('diff'));
         await showPuzzle(scramble(word));
     }
@@ -28,14 +34,14 @@ function handleLetterClick(button){
         checkGuess();
 }
 async function generateWord(id){
-    let api = "https://random-word-api.herokuapp.com/word?number=1&diff="+id+"&length="+ randomLength(id);
+    let api = "https://random-word-api.herokuapp.com/word?number=1" + "&length=" + randomLength(id);
     console.log("Fetching word from API:", api);
     try {
         response = await fetch(api);
         if (!response.ok)
             throw new Error('Network response was not ok');
         data = await response.json();
-        console.log("Your random word is:", data[0]);
+        console.log("Random word fetched!");
         return data[0];
     }
     catch (error) {
@@ -64,7 +70,7 @@ function scramble(word){
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     let scrambled = arr.join('');
-    console.log("Your scrambled word is:", scrambled);
+    console.log("Scrambled word:", scrambled);
     return scrambled;
 }
 showPuzzle = (scrambled) => {
@@ -88,10 +94,14 @@ async function checkGuess(){
         }
         catch (error) {
             score.textContent = "Score: " + (--s) + "     Wrong: " + (++w);
+            alert("Wrong guess! The correct word was: " + word.toUpperCase());
         }
 
     }
     guess = "";
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('diff') !== "1")
+        hint.disabled = false;
     window.onload();
 }
 function randomLength(id){
@@ -99,12 +109,19 @@ function randomLength(id){
         case "1":
             return Math.random() < 0.8 ? 4 : 3;
         case "2":
-            return Math.random() < 0.7 ? 5 : 6;
+            return Math.random() < 0.5 ? 5 : 6;
         case "3":
-            return Math.random() < 0.7 ? 7 : 8;
+            return Math.random() < 0.5 ? 7 : 8;
         case "4":
-            return Math.random() < 0.7 ? 9 : 10;
+            return Math.random() < 0.5 ? 9 : 10;
         case "5":
-            return Math.random() < 0.7 ? 13 : 14;
+            return Math.random() < 0.5 ? 13 : 14;
     }
+}
+function showHint(){
+    let l = Math.floor((word.length - 1)/2) + 1;
+    showPuzzle(word.substring(0, l) + scramble(word.substring(l)));
+    for (let i = 0; i < l; i++)
+        handleLetterClick(document.getElementById(i));
+    hint.disabled = true;
 }
