@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "version": "1.0",
+    "name": "Scrabble",
+    "description": "A Scrabble game built with JavaScript - test your vocabulary and word skills!",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "icon.png"
+        }
+}

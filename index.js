@@ -8,6 +8,7 @@ let guess="";
 let word="";
 let s = 0;
 let w = 0;
+let highScores = JSON.parse(localStorage.getItem("highScores")) || [0, 0, 0, 0, 0];
 score = document.getElementById("score");
 letters = document.getElementById("letters");
 buttons = document.querySelectorAll(".btn.diff");
@@ -21,11 +22,14 @@ window.onload = async () => {
     if (urlParams.get('runAsync') === 'true') {
         console.log("Triggering asynchronous function...");
         letters.innerHTML = "<div class='choice'>Loading...</div>";
-        document.getElementById("level").textContent = "Level: " + levels[parseInt(urlParams.get('diff')) - 1];
+        document.getElementById("levelhighscore").textContent = "Level: " + levels[parseInt(urlParams.get('diff')) - 1] + "     High Score: " + highScores[parseInt(urlParams.get('diff')) - 1];
         word = await generateWord(urlParams.get('diff'));
         await showPuzzle(scramble(word));
     }
 };
+function exitGame(){
+    window.location.href = 'index.html';
+}
 function handleLetterClick(button){
     guess += button.textContent;
     button.disabled = true;
@@ -102,6 +106,12 @@ async function checkGuess(){
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('diff') !== "1")
         hint.disabled = false;
+    if (s > highScores[parseInt(urlParams.get('diff')) - 1]) {
+        highScores[parseInt(urlParams.get('diff')) - 1] = s;
+        localStorage.setItem("highScores", JSON.stringify(highScores));
+        document.getElementById("levelhighscore").textContent = "Level: " + levels[parseInt(urlParams.get('diff')) - 1] + "     High Score: " + highScores[parseInt(urlParams.get('diff')) - 1];
+        console.log("New high score for difficulty " + urlParams.get('diff') + ": " + s);
+    }
     window.onload();
 }
 function randomLength(id){

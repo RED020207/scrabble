@@ -1,5 +1,6 @@
 body{
     background-color: black;
+    min-width: 422.4px;
 }
 .main{
     display: flex;
@@ -37,7 +38,7 @@ body{
     border-radius: 5px;
     cursor: pointer;
     margin: 10px;
-    transition: 0.4s;
+    transition: 0.2s;
 }
 .btn:not(:disabled):hover{
     background-color: gray;
@@ -64,7 +65,7 @@ body{
     border-radius: 5px;
     cursor: pointer;
     margin: 10px;
-    transition: 0.4s;
+    transition: 0.2s;
 }
 #exit:hover{
     background-color: white;
@@ -89,7 +90,7 @@ body{
     border-radius: 5px;
     cursor: pointer;
     margin: 10px;
-    transition: 0.4s;
+    transition: 0.2s;
 }
 #hint:not(:disabled):hover{
     background-color: white;
@@ -99,4 +100,7 @@ body{
     color: gray;
     border: 1px solid gray;
     box-shadow: none;
+}
+#levelhighscore{
+    white-space: pre;
 }
