@@ -1,6 +1,7 @@
 body{
     background-color: black;
-    min-width: 422.4px;
+    min-height: 589.6px;
+    min-width: 971.2px;
 }
 .main{
     display: flex;
