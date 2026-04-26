@@ -1,8 +1,8 @@
-const veasy = ["table", "water", "happy", "friend", "understand"];
-const easy = ["garden", "surprised", "journey", "comfortable", "prepare"];
-const medium = ["skeptical", "subtle", "profound", "procastinate", "significant"];
-const hard = ["meticulous", "ambiguous", "magnanimous", "resilient", "ubiquitous"];
-const vhard = ["pulchritudinous", "defenestration", "floccinaucinihilipilification", "sesquipedalian", "inchoate"];
+const easy = ["apple", "banana", "cat", "dog", "sun", "moon", "book", "tree", "house", "car", "bird", "fish", "park", "milk", "bread", "lamp", "desk", "hand", "shoe", "rain"];
+const medium = ["banana", "computer", "kitchen", "picture", "window", "mountain", "journey", "library", "keyboard", "example", "friendly", "weather", "package", "airport", "concert", "perfect", "channel", "message", "journey", "curtain"];
+const hard = ["extraordinary", "phenomenon", "conscience", "maintenance", "refrigerator", "understanding", "government", "environment", "necessary", "opportunity", "sophisticated", "magnificent", "appreciation", "characteristic", "conscientious", "articulate", "circumstance", "fascinating", "imagination", "rehabilitation"];
+const vhard = ["idiosyncrasy", "quintessential", "unintelligible", "conscientiousness", "phlebotomy", "epistemology", "histrionic", "valetudinarian", "pulchritudinous", "antediluvian", "heterogeneous", "interdisciplinary", "unconscionable", "obstreperous", "magnanimous", "prevaricate", "sesquipedalian", "surreptitious", "taciturn", "vicissitude"];
+const insane = ["floccinaucinihilipilification", "antidisestablishmentarianism", "honorificabilitudinitatibus", "incomprehensibility", "pseudopseudohypoparathyroidism", "dichlorodiphenyltrichloroethane", "thyroparathyroidectomize", "pathophysiology", "otorhinolaryngological", "spectrophotofluorometrically", "tetramethylenedisulfotetramine", "deoxyribonucleic", "anthropomorphism", "transubstantiation", "electroencephalographically", "farthest", "counterrevolutionaries", "scientific", "investigational", "authoritatively"];
 const levels = ["Easy", "Medium", "Hard", "Very Hard", "Insane"];
 let guess="";
 let word="";
@@ -56,15 +56,15 @@ async function generateWord(id){
 function genWord(id){
     switch(id){
         case "1":
-            return veasy[Math.floor(Math.random() * veasy.length)];
+            return easy[Math.floor(Math.random() * 20)];
         case "2":
-            return easy[Math.floor(Math.random() * easy.length)];
+            return medium[Math.floor(Math.random() * 20)];
         case "3":
-            return medium[Math.floor(Math.random() * medium.length)];
+            return hard[Math.floor(Math.random() * 20)];
         case "4":
-            return hard[Math.floor(Math.random() * hard.length)];
+            return vhard[Math.floor(Math.random() * 20)];
         case "5":
-            return vhard[Math.floor(Math.random() * vhard.length)];
+            return insane[Math.floor(Math.random() * 20)];
     }
 }   
 function scramble(word){
